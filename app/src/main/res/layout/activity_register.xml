@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <ImageView
-        android:id="@+id/logoLogin"
+        android:id="@+id/registerLogo"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_alignParentLeft="true"
@@ -19,43 +19,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/loginTitleTV"
+        android:id="@+id/registerTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Presensi \n SMAN 1 Nglames"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/logoLogin"
+        app:layout_constraintBottom_toBottomOf="@+id/registerLogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/logoLogin"
-        app:layout_constraintTop_toTopOf="@+id/logoLogin" />
+        app:layout_constraintStart_toEndOf="@+id/registerLogo"
+        app:layout_constraintTop_toTopOf="@+id/registerLogo" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="96dp"
         android:onClick="register"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginNIS" />
+        app:layout_constraintTop_toBottomOf="@+id/registerNisET" />
 
     <TextView
         android:id="@+id/registerTV"
         android:layout_width="128dp"
         android:layout_height="32dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="128dp"
         android:text="Register"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.286"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
 
     <EditText
-        android:id="@+id/loginNIS"
+        android:id="@+id/registerNisET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

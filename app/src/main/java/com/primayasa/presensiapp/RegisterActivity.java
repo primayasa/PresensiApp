@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,9 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
     }
 
     public void register(View view) {
+        EditText nisET = findViewById(R.id.registerNisET);
+        String nis = String.valueOf(nisET.getText());
         String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         RequestQueue requestQueue=Volley.newRequestQueue(RegisterActivity.this);
@@ -62,8 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Map<String,String> params=new HashMap<String, String>();
 //                params.put("email","eve.holt@reqres.in");
 //                params.put("password","pistol");
-                params.put("nis","8888");
-                params.put("device_id","coba");
+                params.put("nis",nis);
+                params.put("device_id",android_id);
                 return params;
             }
 

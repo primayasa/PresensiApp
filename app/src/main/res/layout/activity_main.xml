@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/logoLogin"
+        android:id="@+id/loginLogo"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_alignParentLeft="true"
@@ -22,40 +22,40 @@
         android:id="@+id/loginTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
         android:text="Presensi \n SMAN 1 Nglames"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/logoLogin"
+        app:layout_constraintBottom_toBottomOf="@+id/loginLogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/logoLogin"
-        app:layout_constraintTop_toTopOf="@+id/logoLogin" />
+        app:layout_constraintTop_toTopOf="@+id/loginLogo" />
 
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="96dp"
         android:onClick="login"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginNIS" />
+        app:layout_constraintTop_toBottomOf="@+id/loginNisET" />
 
     <TextView
-        android:id="@+id/registerTV"
+        android:id="@+id/loginTV"
         android:layout_width="128dp"
         android:layout_height="32dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="128dp"
         android:text="Login"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
     <EditText
-        android:id="@+id/loginNIS"
+        android:id="@+id/loginNisET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -65,19 +65,19 @@
         android:text="nis"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintHorizontal_bias="0.341"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerTV" />
+        app:layout_constraintTop_toBottomOf="@+id/loginTV" />
 
     <TextView
         android:id="@+id/linkRegisterTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Belum punya akun? Register"
+        android:layout_marginTop="16dp"
         android:onClick="moveToRegister"
+        android:text="Belum punya akun? Register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 

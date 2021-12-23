@@ -6,4 +6,183 @@
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
 
+    <TextView
+        android:id="@+id/dashboardTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Profil Siswa"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardTitleTV"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/namaTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Nama Siswa"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardTitleTV" />
+
+    <TextView
+        android:id="@+id/kelasTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Kelas"
+        app:layout_constraintStart_toStartOf="@+id/namaTV"
+        app:layout_constraintTop_toBottomOf="@+id/namaTV" />
+
+    <TextView
+        android:id="@+id/nisTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="NIS"
+        app:layout_constraintStart_toStartOf="@+id/kelasTV"
+        app:layout_constraintTop_toBottomOf="@+id/kelasTV" />
+
+    <TextView
+        android:id="@+id/tanggalTTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Tanggal"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/jamTTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Jam"
+        app:layout_constraintStart_toStartOf="@+id/tanggalTTV"
+        app:layout_constraintTop_toBottomOf="@+id/tanggalTTV" />
+
+    <TextView
+        android:id="@+id/lokasiTTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Lokasi"
+        app:layout_constraintStart_toStartOf="@+id/jamTTV"
+        app:layout_constraintTop_toBottomOf="@+id/jamTTV" />
+
+    <TextView
+        android:id="@+id/jarakTTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Jarak"
+        app:layout_constraintStart_toStartOf="@+id/lokasiTTV"
+        app:layout_constraintTop_toBottomOf="@+id/lokasiTTV" />
+
+    <TextView
+        android:id="@+id/tanggalTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="tanggal"
+        app:layout_constraintEnd_toEndOf="@+id/jamTV"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/jamTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="jam"
+        app:layout_constraintEnd_toEndOf="@+id/lokasiTV"
+        app:layout_constraintTop_toBottomOf="@+id/tanggalTV" />
+
+    <TextView
+        android:id="@+id/lokasiTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="lokasi"
+        app:layout_constraintEnd_toEndOf="@+id/jarakTV"
+        app:layout_constraintTop_toBottomOf="@+id/jamTV" />
+
+    <TextView
+        android:id="@+id/jarakTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="205dp"
+        android:layout_marginTop="12dp"
+        android:text="jarak"
+        app:layout_constraintStart_toEndOf="@+id/jarakTTV"
+        app:layout_constraintTop_toBottomOf="@+id/lokasiTV" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="32dp"
+        android:background="#ada8a8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jarakTTV" />
+
+    <TextView
+        android:id="@+id/statusTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="status"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <Button
+        android:id="@+id/presensiBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:onClick="presensiBtnOnClick"
+        android:text="PRESENSI"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTV" />
+
+    <Button
+        android:id="@+id/rekapBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="rekapBtnOnClick"
+        android:text="Rekap"
+        app:layout_constraintEnd_toEndOf="@+id/presensiBtn"
+        app:layout_constraintStart_toStartOf="@+id/presensiBtn"
+        app:layout_constraintTop_toBottomOf="@+id/presensiBtn" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="logoutBtnOnClick"
+        android:text="LOGOUT"
+        app:layout_constraintEnd_toEndOf="@+id/rekapBtn"
+        app:layout_constraintStart_toStartOf="@+id/rekapBtn"
+        app:layout_constraintTop_toBottomOf="@+id/rekapBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

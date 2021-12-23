@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -30,11 +32,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
     private int jarak;
+    private int lokasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,11 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         getJarak();
+
+        TextView tanggalTV = findViewById(R.id.tanggalTV);
+        SimpleDateFormat sdfTanggal = new SimpleDateFormat("dd MMMM yyyy");
+        String currentDate = sdfTanggal.format(new Date());
+        tanggalTV.setText(currentDate);
 
         String url="http://10.0.2.2:8000/api/auth/profile";
         int method = Request.Method.GET;
@@ -51,18 +61,11 @@ public class DashboardActivity extends AppCompatActivity {
         String token = "bearer" + sharedPreferences.getString("access_token", "");
 
         this.callApi(url, method, params, token, 1);
+
+        displayTime();
     }
 
     public void presensiBtnOnClick(View view) {
-        TextView jarakTV = findViewById(R.id.jarakTV);
-
-        int lokasi;
-        if(jarak<300){
-            lokasi = 1;
-        }else{
-            lokasi = 0;
-        }
-
         String url="http://10.0.2.2:8000/api/user/presensi";
         int method = Request.Method.POST;
         Map<String,String> params=new HashMap<String, String>();
@@ -75,44 +78,15 @@ public class DashboardActivity extends AppCompatActivity {
         this.callApi(url, method, params, token, 2);
     }
 
-    public void rekapBtnOnClick(View view) {
-
-    }
-
     public void logoutBtnOnClick(View view) {
+        String url="http://10.0.2.2:8000/api/auth/logout";
+        int method = Request.Method.POST;
+        Map<String,String> params=new HashMap<String, String>();
 
-    }
-    
-    private void updateProfile(JSONObject responseJSON){
-        try{
-            JSONObject profile = responseJSON.getJSONObject("profile");
+        SharedPreferences sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
+        String token = "bearer" + sharedPreferences.getString("access_token", "");
 
-            TextView namaTV = findViewById(R.id.namaTV);
-            namaTV.setText(profile.getString("nama"));
-
-            TextView kelasTV = findViewById(R.id.kelasTV);
-            kelasTV.setText(profile.getString("kelas"));
-
-            TextView nisTV = findViewById(R.id.nisTV);
-            nisTV.setText(profile.getString("nis"));
-
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void showPresensiStatus(JSONObject responseJSON){
-        try{
-            TextView statusTV = findViewById(R.id.statusTV);
-            Log.d("cek respon presensi", responseJSON.getString("message"));
-            statusTV.setText(responseJSON.getString("message"));
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void backToMainActivity(JSONObject responseJSON){
-
+        this.callApi(url, method, params, token, 3);
     }
 
     private void callApi(String url, int method, Map<String,String> params, String token, int updateUI){
@@ -127,7 +101,7 @@ public class DashboardActivity extends AppCompatActivity {
 //                    Toast.makeText(DashboardActivity.this, message, Toast.LENGTH_SHORT).show();
 //                    Log.d("response", jsonObject.toString());
 //                    callback.onSuccessResponse(Response);
-                    
+
                     if(updateUI==1){
                         updateProfile(responseJSON);
                     }else if(updateUI==2){
@@ -174,8 +148,66 @@ public class DashboardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    private void updateProfile(JSONObject responseJSON){
+        try{
+            JSONObject profile = responseJSON.getJSONObject("profile");
+
+            TextView namaTV = findViewById(R.id.namaTV);
+            namaTV.setText(profile.getString("nama"));
+
+            TextView kelasTV = findViewById(R.id.kelasTV);
+            kelasTV.setText(profile.getString("kelas"));
+
+            TextView nisTV = findViewById(R.id.nisTV);
+            nisTV.setText(profile.getString("nis"));
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showPresensiStatus(JSONObject responseJSON){
+        try{
+            TextView statusTV = findViewById(R.id.statusTV);
+            Log.d("cek respon presensi", responseJSON.getString("message"));
+            statusTV.setText(responseJSON.getString("message"));
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void backToMainActivity(JSONObject responseJSON) {
+        try{
+            String message = responseJSON.getString("message");
+            Toast.makeText(DashboardActivity.this, message, Toast.LENGTH_SHORT).show();
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        SharedPreferences settings = getSharedPreferences("user_login", Context.MODE_PRIVATE);
+        settings.edit().clear().commit();
+
+        finish();
+    }
+
+    private void displayTime(){
+        final Handler someHandler = new Handler(getMainLooper());
+        TextView jamTV = findViewById(R.id.jamTV);
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jamTV.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                someHandler.postDelayed(this, 1000);
+            }
+        }, 10);
+    }
+
     private void getJarak(){
         TextView jarakTV = findViewById(R.id.jarakTV);
+        TextView lokasiTV = findViewById(R.id.lokasiTV);
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if(ContextCompat.checkSelfPermission(DashboardActivity.this,
@@ -191,7 +223,16 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 Log.d("get jarak", "masuk sini");
-                jarakTV.setText(String.valueOf(calculateDistance(location.getLatitude(), location.getLongitude())));
+                jarak = calculateDistance(location.getLatitude(), location.getLongitude());
+                if(jarak<300){
+                    lokasi = 1;
+                    lokasiTV.setText("Dalam Sekolah");
+                }else{
+                    lokasi = 0;
+                    lokasiTV.setText("Luar Sekolah");
+                }
+
+                jarakTV.setText(String.valueOf(jarak));
             }
         });
     }
@@ -211,7 +252,6 @@ public class DashboardActivity extends AppCompatActivity {
             dist = dist * 60 * 1.1515 * 1.609344 * 1000;
 
             Log.d("jarak", String.valueOf(dist));
-            jarak = (int) dist;
             return (int) dist;
         }
     }

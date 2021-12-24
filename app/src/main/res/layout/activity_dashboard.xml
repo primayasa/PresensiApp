@@ -11,8 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Profil Siswa"
-        android:textSize="24sp"
+        android:textColor="#383F60"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,6 +38,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Nama Siswa"
+        android:textColor="#000000"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/dashboardTitleTV" />
@@ -45,6 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:text="Kelas"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/namaTV"
         app:layout_constraintTop_toBottomOf="@+id/namaTV" />
 
@@ -54,6 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:text="NIS"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/kelasTV"
         app:layout_constraintTop_toBottomOf="@+id/kelasTV" />
 
@@ -61,8 +70,11 @@
         android:id="@+id/tanggalTTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:text="Tanggal"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -72,6 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Jam"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tanggalTTV"
         app:layout_constraintTop_toBottomOf="@+id/tanggalTTV" />
 
@@ -81,6 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Lokasi"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/jamTTV"
         app:layout_constraintTop_toBottomOf="@+id/jamTTV" />
 
@@ -90,6 +108,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Jarak"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/lokasiTTV"
         app:layout_constraintTop_toBottomOf="@+id/lokasiTTV" />
 
@@ -97,8 +118,9 @@
         android:id="@+id/tanggalTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="tanggal"
+        android:layout_marginTop="48dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/jamTV"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -107,7 +129,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="jam"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/lokasiTV"
         app:layout_constraintTop_toBottomOf="@+id/tanggalTV" />
 
@@ -116,7 +139,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="lokasi"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/jarakTV"
         app:layout_constraintTop_toBottomOf="@+id/jamTV" />
 
@@ -124,10 +148,11 @@
         android:id="@+id/jarakTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="205dp"
         android:layout_marginTop="12dp"
-        android:text="jarak"
-        app:layout_constraintStart_toEndOf="@+id/jarakTTV"
+        android:layout_marginEnd="64dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lokasiTV" />
 
     <View
@@ -146,8 +171,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="status"
-        android:textSize="24sp"
+        android:fontFamily="sans-serif-medium"
+        android:textAlignment="center"
+        android:textColor="#00B050"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -157,6 +184,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:width="200dp"
+        android:height="60dp"
         android:onClick="presensiBtnOnClick"
         android:text="PRESENSI"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,6 +196,9 @@
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:width="200dp"
+        android:height="60dp"
         android:onClick="logoutBtnOnClick"
         android:text="LOGOUT"
         app:layout_constraintEnd_toEndOf="@+id/presensiBtn"

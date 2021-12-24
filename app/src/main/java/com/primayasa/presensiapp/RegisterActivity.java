@@ -38,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         RequestQueue requestQueue=Volley.newRequestQueue(RegisterActivity.this);
         String url="http://10.0.2.2:8000/api/auth/register";
-//        String url="https://reqres.in/api/register";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -63,9 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         }){
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<String, String>();
-//                params.put("email","eve.holt@reqres.in");
-//                params.put("password","pistol");
+                Map<String,String> params=new HashMap<String, String>();//
                 params.put("nis",nis);
                 params.put("device_id",android_id);
                 return params;

@@ -15,7 +15,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,25 +44,13 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        getJarak();
-
-        TextView tanggalTV = findViewById(R.id.tanggalTV);
-        SimpleDateFormat sdfTanggal = new SimpleDateFormat("dd MMMM yyyy");
-        String currentDate = sdfTanggal.format(new Date());
-        tanggalTV.setText(currentDate);
-
-        String url="http://10.0.2.2:8000/api/auth/profile";
-        int method = Request.Method.GET;
-        Map<String,String> params=new HashMap<String, String>();
-
-        SharedPreferences sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
-        String token = "bearer" + sharedPreferences.getString("access_token", "");
-
-        this.callApi(url, method, params, token, 1);
-
-        displayTime();
+        getProfile();
+        showDate();
+        showJarak();
+        showTime();
     }
 
+    // On Click Methods
     public void presensiBtnOnClick(View view) {
         String url="http://10.0.2.2:8000/api/user/presensi";
         int method = Request.Method.POST;
@@ -89,6 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
         this.callApi(url, method, params, token, 3);
     }
 
+    // Call API
     private void callApi(String url, int method, Map<String,String> params, String token, int updateUI){
 
         RequestQueue requestQueue= Volley.newRequestQueue(DashboardActivity.this);
@@ -97,11 +84,6 @@ public class DashboardActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject responseJSON = new JSONObject(response);
-//                    String message = jsonObject.getString("message");
-//                    Toast.makeText(DashboardActivity.this, message, Toast.LENGTH_SHORT).show();
-//                    Log.d("response", jsonObject.toString());
-//                    callback.onSuccessResponse(Response);
-
                     if(updateUI==1){
                         updateProfile(responseJSON);
                     }else if(updateUI==2){
@@ -148,6 +130,7 @@ public class DashboardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    // Update UI Methods
     private void updateProfile(JSONObject responseJSON){
         try{
             JSONObject profile = responseJSON.getJSONObject("profile");
@@ -166,11 +149,65 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    private void showDate(){
+        TextView tanggalTV = findViewById(R.id.tanggalTV);
+        SimpleDateFormat sdfTanggal = new SimpleDateFormat("dd MMMM yyyy");
+        String currentDate = sdfTanggal.format(new Date());
+        tanggalTV.setText(currentDate);
+    }
+
+    private void showTime(){
+        final Handler someHandler = new Handler(getMainLooper());
+        TextView jamTV = findViewById(R.id.jamTV);
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jamTV.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                someHandler.postDelayed(this, 1000);
+            }
+        }, 10);
+    }
+
+    private void showJarak(){
+        TextView jarakTV = findViewById(R.id.jarakTV);
+        TextView lokasiTV = findViewById(R.id.lokasiTV);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if(ContextCompat.checkSelfPermission(DashboardActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(DashboardActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(DashboardActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                jarak = calculateDistance(location.getLatitude(), location.getLongitude());
+                if(jarak<300){
+                    lokasi = 1;
+                    lokasiTV.setText("Dalam Sekolah");
+                }else{
+                    lokasi = 0;
+                    lokasiTV.setText("Luar Sekolah");
+                }
+
+                jarakTV.setText(String.valueOf(jarak) + "  meter");
+            }
+        });
+    }
+
     private void showPresensiStatus(JSONObject responseJSON){
         try{
             TextView statusTV = findViewById(R.id.statusTV);
-            Log.d("cek respon presensi", responseJSON.getString("message"));
-            statusTV.setText(responseJSON.getString("message"));
+            String message = responseJSON.getString("message");
+            if(message.equals("PRESENSI TERLAMBAT")){
+                message = "PRESENSI BERHASIL \n Anda Terlambat";
+//                statusTV.setTextColor(0xFF0000);
+            }
+            statusTV.setText(message);
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -193,50 +230,19 @@ public class DashboardActivity extends AppCompatActivity {
         finish();
     }
 
-    private void displayTime(){
-        final Handler someHandler = new Handler(getMainLooper());
-        TextView jamTV = findViewById(R.id.jamTV);
-        someHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                jamTV.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                someHandler.postDelayed(this, 1000);
-            }
-        }, 10);
+    // Get Profile
+    private void getProfile(){
+        String url="http://10.0.2.2:8000/api/auth/profile";
+        int method = Request.Method.GET;
+        Map<String,String> params=new HashMap<String, String>();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_login", MODE_PRIVATE);
+        String token = "bearer" + sharedPreferences.getString("access_token", "");
+
+        this.callApi(url, method, params, token, 1);
     }
 
-    private void getJarak(){
-        TextView jarakTV = findViewById(R.id.jarakTV);
-        TextView lokasiTV = findViewById(R.id.lokasiTV);
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if(ContextCompat.checkSelfPermission(DashboardActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(DashboardActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-            ActivityCompat.requestPermissions(DashboardActivity.this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                Log.d("get jarak", "masuk sini");
-                jarak = calculateDistance(location.getLatitude(), location.getLongitude());
-                if(jarak<300){
-                    lokasi = 1;
-                    lokasiTV.setText("Dalam Sekolah");
-                }else{
-                    lokasi = 0;
-                    lokasiTV.setText("Luar Sekolah");
-                }
-
-                jarakTV.setText(String.valueOf(jarak));
-            }
-        });
-    }
-
+    // Calculate Distance
     private int calculateDistance(double lat2, double lon2) {
         double lat1 = -7.576200056204967;
         double lon1 = 111.54414008193905;
@@ -250,8 +256,6 @@ public class DashboardActivity extends AppCompatActivity {
             dist = Math.acos(dist);
             dist = Math.toDegrees(dist);
             dist = dist * 60 * 1.1515 * 1.609344 * 1000;
-
-            Log.d("jarak", String.valueOf(dist));
             return (int) dist;
         }
     }

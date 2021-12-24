@@ -22,9 +22,11 @@
         android:id="@+id/registerTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Presensi \n SMAN 1 Nglames"
+        android:fontFamily="sans-serif-medium"
+        android:text="Registrasi HP"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#383F60"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/registerLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/registerLogo"
@@ -35,22 +37,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
+        android:width="200dp"
+        android:height="60dp"
         android:onClick="register"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerNisET" />
+        app:layout_constraintTop_toBottomOf="@+id/pentingTV" />
 
     <TextView
         android:id="@+id/registerTV"
         android:layout_width="128dp"
         android:layout_height="32dp"
         android:layout_marginTop="128dp"
-        android:text="Register"
+        android:fontFamily="sans-serif-medium"
+        android:text="NIS"
+        android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.286"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
 
@@ -62,11 +68,34 @@
         android:width="200sp"
         android:inputType="number"
         android:lines="1"
-        android:text="nis"
+        android:hint="contoh : 8675"
+        android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerTV" />
+
+    <TextView
+        android:id="@+id/pentingTTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Penting !"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/registerLogo"
+        app:layout_constraintTop_toBottomOf="@+id/registerNisET" />
+
+    <TextView
+        android:id="@+id/pentingTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:width="300dp"
+        android:text="Saat register, HP anda akan dicatat Jadi untuk presensi berikutnya harus menggunakan HP yg sama "
+        app:layout_constraintStart_toStartOf="@+id/pentingTTV"
+        app:layout_constraintTop_toBottomOf="@+id/pentingTTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
